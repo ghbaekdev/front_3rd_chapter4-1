@@ -14,7 +14,7 @@ GitHub Actions를 통해 다음과 같은 자동화된 배포 프로세스를 �
 
 2. **의존성 설치**
 
-   - `npm install` 명령어를 통해 프로젝트에 필요한 패키지들을 설치합니다.
+   - `npm ci` 명령어를 통해 프로젝트에 필요한 패키지들을 설치합니다.
 
 3. **프로젝트 빌드**
 
@@ -93,3 +93,38 @@ Secret Keys들은 GitHub Repository Secrets를 통해 안전하게 관리됩니�
 | **AWS_REGION**                 | 버킷 생성시 설정한 리전                |
 | **S3_BUCKET_NAME**             | 버킷 이름                              |
 | **CLOUDFRONT_DISTRIBUTION_ID** | CloudFront 배포 ID                     |
+
+<br />
+
+---
+
+<br />
+
+## CDN를 사용한 성능 분석
+
+### [S3 Bucket](http://hanghae3-2.s3-website-us-east-1.amazonaws.com) 정적 파일 배포
+
+![S3 Bucket](/public/bucket_network.png)
+
+<br />
+
+---
+
+<br />
+
+### [Cloud Front](http://d1v0z4rxx6cnh9.cloudfront.net)를 활용한 CDN 배포
+
+![Cloud Front](/public/cf_network.png)
+
+## <br />
+
+<br />
+
+### 1-1. 네트워크 요청 시간 비교 (Chrome DevTools)
+
+| 요소                  | 설명   |
+| --------------------- | ------ |
+| HTML 파일 요청 시간   | 0.59ms |
+| CSS 파일 요청 시간    | 0.15ms |
+| JS 파일 요청 시간     | 0.15ms |
+| 이미지 파일 요청 시간 | 0.15ms |
