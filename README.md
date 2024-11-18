@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 프론트엔드 배포 파이프라인
 
-## Getting Started
+<!-- 1. 기본적인 마크다운 이미지 문법 -->
 
-First, run the development server:
+![WorkFlow](/public/workflow.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### GitHub Actions 배포 워크플로우
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+GitHub Actions를 통해 다음과 같은 자동화된 배포 프로세스를 구현합니다:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **저장소 체크아웃**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   - GitHub Actions runner에 프로젝트 소스 코드를 가져옵니다.
 
-## Learn More
+2. **의존성 설치**
 
-To learn more about Next.js, take a look at the following resources:
+   - `npm install` 명령어를 통해 프로젝트에 필요한 패키지들을 설치합니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **프로젝트 빌드**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - Next.js 프로젝트를 빌드하여 배포 가능한 정적 파일들을 생성합니다.
 
-## Deploy on Vercel
+4. **AWS 자격 증명 구성**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - AWS CLI를 사용하기 위한 인증 정보를 설정합니다.
+   - GitHub Secrets에 저장된 AWS 접근 키를 활용합니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. **S3 버킷 동기화**
+
+   - 빌드된 정적 파일들을 AWS S3 버킷에 업로드합니다.
+   - 기존 파일들과 동기화하여 최신 상태를 유지합니다.
+
+6. **CloudFront 캐시 무효화**
+   - 배포된 콘텐츠의 즉각적인 반영을 위해 CloudFront의 캐시를 초기화합니다.
